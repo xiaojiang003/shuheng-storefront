@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "placeholders": "node scripts/generate-placeholders.mjs",
+    "demo-images": "python3 scripts/download-demo-images.py",
     "verify:angles": "node scripts/verify-angles.mjs",
     "validate:seo": "node scripts/validate-seo.mjs"
   },

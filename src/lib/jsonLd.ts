@@ -103,6 +103,24 @@ export function buildOrganizationJsonLd(siteUrl: string): JsonLdGraph {
   };
 }
 
+export function buildFaqJsonLdFromItems(
+  items: { question: string; answer: string }[],
+): JsonLdGraph {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'FAQPage',
+        mainEntity: items.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      },
+    ],
+  };
+}
+
 export function buildFaqJsonLd(): JsonLdGraph {
   return {
     '@context': 'https://schema.org',

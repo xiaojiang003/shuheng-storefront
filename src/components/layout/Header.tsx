@@ -1,5 +1,9 @@
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
+import { SearchModal } from '@/components/search/SearchModal';
 import { Button } from '@/components/ui/Button';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { HEADER_NAV } from '@/i18n/navItems';
 import { cn } from '@/lib/cn';
 import { trackEvent } from '@/lib/analytics';
 import { useQuoteStore } from '@/stores/useQuoteStore';
@@ -7,22 +11,16 @@ import { Menu, MessageSquare, Search } from 'lucide-react';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
-const NAV = [
-  { to: '/', label: 'Home' },
-  { to: '/collection', label: 'Collection' },
-  { to: '/collection?silhouette=six-panel-snapback', label: 'Silhouette' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-];
-
 interface HeaderProps {
   transparent?: boolean;
 }
 
 export function Header({ transparent }: HeaderProps) {
+  const { t } = useLocale();
   const location = useLocation();
   const openQuote = useQuoteStore((s) => s.open);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const isHome = location.pathname === '/';
   const variant = transparent ?? isHome;
 
@@ -54,8 +52,8 @@ export function Header({ transparent }: HeaderProps) {
               Shuheng
             </Link>
           </div>
-          <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
-            {NAV.map(({ to, label }) => (
+          <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
+            {HEADER_NAV.map(({ to, key }) => (
               <NavLink
                 key={to}
                 to={to}
@@ -66,14 +64,16 @@ export function Header({ transparent }: HeaderProps) {
                   )
                 }
               >
-                {label}
+                {t(key)}
               </NavLink>
             ))}
           </nav>
           <div className="flex items-center gap-1 sm:gap-2">
+            <LanguageSwitcher className="hidden sm:block" />
             <button
               type="button"
               aria-label="Search"
+              onClick={() => setSearchOpen(true)}
               className="flex size-11 items-center justify-center text-white/80 hover:text-white"
             >
               <Search className="size-5" />
@@ -88,13 +88,14 @@ export function Header({ transparent }: HeaderProps) {
               }}
             >
               <MessageSquare className="size-4 sm:mr-1.5" aria-hidden />
-              <span className="hidden sm:inline">Quick Quote</span>
-              <span className="sr-only sm:hidden">Quick Quote</span>
+              <span className="hidden sm:inline">{t('cta.quote')}</span>
+              <span className="sr-only sm:hidden">{t('cta.quote')}</span>
             </Button>
           </div>
         </div>
       </header>
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

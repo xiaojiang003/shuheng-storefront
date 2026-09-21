@@ -10,6 +10,30 @@ export function AboutPage() {
         {MERCHANT.legalName} — registered {MERCHANT.registrationYear} in {MERCHANT.address.locality},{' '}
         {MERCHANT.address.region}. We manufacture custom headwear for B2B buyers worldwide.
       </p>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="aspect-[16/10] overflow-hidden rounded-card bg-surface-alt">
+          <img
+            src="/images/factory-workshop.jpg"
+            alt="Headwear production workshop"
+            width={640}
+            height={400}
+            loading="lazy"
+            decoding="async"
+            className="size-full object-cover"
+          />
+        </div>
+        <div className="aspect-[16/10] overflow-hidden rounded-card bg-surface-alt">
+          <img
+            src="/images/production-line.jpg"
+            alt="Cap manufacturing and quality control"
+            width={640}
+            height={400}
+            loading="lazy"
+            decoding="async"
+            className="size-full object-cover"
+          />
+        </div>
+      </div>
       <section className="mt-10">
         <h2 className="text-xl font-bold">Capabilities</h2>
         <ul className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -42,12 +66,24 @@ export function AboutPage() {
         </div>
       </section>
       <section className="mt-10">
+        <h2 className="text-xl font-bold">Lead times</h2>
+        <ul className="mt-4 space-y-2 text-sm text-muted">
+          <li><strong>Sampling:</strong> {MERCHANT.leadTimes.sample}</li>
+          <li><strong>Bulk (500 pcs):</strong> {MERCHANT.leadTimes.bulk500}</li>
+          <li><strong>Bulk (1,000 pcs):</strong> {MERCHANT.leadTimes.bulk1000}</li>
+          <li><strong>Bulk (5,000 pcs):</strong> {MERCHANT.leadTimes.bulk5000}</li>
+        </ul>
+      </section>
+      <section className="mt-10">
         <h2 className="text-xl font-bold">Trade terms</h2>
         <p className="mt-2 text-sm text-muted">
           Incoterms: {MERCHANT.deliveryTerms.join(', ')}
         </p>
         <p className="mt-1 text-sm text-muted">
-          Payment: {MERCHANT.paymentMethods.join(', ')}
+          Payment methods: {MERCHANT.paymentMethods.join(', ')}
+        </p>
+        <p className="mt-1 text-sm text-muted">
+          Typical structure: {MERCHANT.paymentTerms.structure}
         </p>
       </section>
       <MaterialStrip />

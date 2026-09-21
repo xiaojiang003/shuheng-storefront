@@ -5,7 +5,7 @@ const ANGLES: ShootAngle[] = ['3QL', 'F', 'R', 'LSIDE', 'RSIDE', 'INT'];
 function buildImages(sku: string, title: string): Product['images'] {
   return ANGLES.map((angle) => ({
     angle,
-    src: `/products/${sku}/${sku}-${angle}.webp`,
+    src: `/products/${sku}/${sku}-${angle}.jpg`,
     width: 700,
     height: 700,
     alt: `${title} — ${angle} view`,

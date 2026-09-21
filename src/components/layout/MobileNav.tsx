@@ -1,3 +1,6 @@
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { MOBILE_NAV } from '@/i18n/navItems';
 import { cn } from '@/lib/cn';
 import { trackEvent } from '@/lib/analytics';
 import { useQuoteStore } from '@/stores/useQuoteStore';
@@ -5,21 +8,13 @@ import { MessageSquare, X } from 'lucide-react';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NAV = [
-  { to: '/', label: 'Home' },
-  { to: '/collection', label: 'Collection' },
-  { to: '/collection?silhouette=six-panel-snapback', label: 'Silhouette' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/sizing-guide', label: 'Sizing Guide' },
-];
-
 interface MobileNavProps {
   open: boolean;
   onClose: () => void;
 }
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
+  const { t } = useLocale();
   const openQuote = useQuoteStore((s) => s.open);
 
   useEffect(() => {
@@ -54,7 +49,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         )}
       >
         <div className="flex h-16 items-center justify-between px-6">
-          <span className="text-sm font-bold uppercase tracking-widest">Menu</span>
+          <span className="text-sm font-bold uppercase tracking-widest">{t('mobile.menu')}</span>
           <button
             type="button"
             onClick={onClose}
@@ -65,7 +60,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           </button>
         </div>
         <ul className="flex-1 overflow-y-auto px-4">
-          {NAV.map(({ to, label }) => (
+          {MOBILE_NAV.map(({ to, key }) => (
             <li key={to}>
               <NavLink
                 to={to}
@@ -77,12 +72,13 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   )
                 }
               >
-                {label}
+                {t(key)}
               </NavLink>
             </li>
           ))}
         </ul>
-        <div className="border-t border-white/10 p-4">
+        <div className="space-y-4 border-t border-white/10 p-4">
+          <LanguageSwitcher layout="expanded" />
           <button
             type="button"
             className="flex min-h-12 w-full items-center justify-center gap-2 rounded-pill bg-accent px-6 text-sm font-bold uppercase tracking-wider text-white"
@@ -93,7 +89,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             }}
           >
             <MessageSquare className="size-5" aria-hidden />
-            Quick Quote
+            {t('cta.quote')}
           </button>
         </div>
       </nav>

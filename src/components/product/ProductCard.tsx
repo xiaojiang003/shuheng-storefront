@@ -22,7 +22,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
     >
       <div className="relative aspect-square overflow-hidden bg-surface-alt">
         <img
-          src={hero?.src ?? '/images/placeholder-cap.webp'}
+          src={hero?.src ?? '/images/placeholder-cap.jpg'}
           alt={hero?.alt ?? product.title}
           width={350}
           height={350}

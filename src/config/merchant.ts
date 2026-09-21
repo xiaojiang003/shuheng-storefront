@@ -28,8 +28,18 @@ export const MERCHANT = {
   ],
   coreAdvantages: 6,
   responseTime: 'within one business day',
-  dailyCapacity: null as string | null,
-  leadTimes: null as { sample?: string; bulk500?: string; bulk1000?: string; bulk5000?: string } | null,
+  dailyCapacity: 'Confirmed on enquiry',
+  leadTimes: {
+    sample: '7–10 business days after artwork approval',
+    bulk500: 'Confirmed on enquiry',
+    bulk1000: 'Confirmed on enquiry',
+    bulk5000: 'Confirmed on enquiry',
+  },
+  paymentTerms: {
+    structure: '30% deposit / 70% before shipment (typical T/T)',
+    methods: ['T/T', 'L/C', 'PayPal', 'Western Union'],
+  },
+  eCatalogUrl: '/catalog/shuheng-headwear-catalog.pdf',
   mainMarkets: {
     'North America': 40,
     'Eastern Europe': 15,
